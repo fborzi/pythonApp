@@ -1,10 +1,9 @@
-
 import os
 from dotenv import load_dotenv
 from fastapi import Depends
 from typing import Annotated
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session, declarative_base
+from sqlalchemy.orm import sessionmaker, Session
 
 load_dotenv()
 
@@ -15,8 +14,6 @@ if URL_DATABASE is None:
 else:
     engine = create_engine(URL_DATABASE)
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-Base = declarative_base()
 
 def get_db():
     db = SessionLocal()

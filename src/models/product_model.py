@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class Product(BaseModel):
@@ -9,5 +9,4 @@ class Product(BaseModel):
     is_available: bool
     category_id: int
 
-    # class Config:
-    #     orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
