@@ -1,0 +1,29 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=mysql+pymysql://francoborzi:francoborzi123@db:3306/pythonappdb
+    depends_on:
+      - db
+    volumes:
+      - ./:/app
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+  db:
+    image: mysql:8.4
+    container_name: pythonapp-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=pythonappdb
+      - MYSQL_USER=francoborzi
+      - MYSQL_PASSWORD=francoborzi123
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+
+volumes:
+  mysql_data:
